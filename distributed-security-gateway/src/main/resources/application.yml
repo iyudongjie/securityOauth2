@@ -1,0 +1,34 @@
+server:
+  port: 12000
+
+spring:
+  application:
+    name: distrbuted-geteway
+  main:
+    allow-bean-definition-overriding: true
+zuul:
+  retryable: true
+  routes:
+    uaa-service:
+      path: /uaa/**
+      serviceId: uaa-service
+      stripPrefix: false
+    order-service:
+      path: /order/**
+      serviceId: order-service
+      stripPrefix: false
+    test-service:
+      path: /test/**
+      serviceId: test-service
+      stripPrefix: false
+  host:
+    connect-timeout-millis: 15000 #HTTP连接超时要比Hystrix的大
+    socket-timeout-millis: 60000   #socket超时
+  sensitive-headers: Cookie,Set-Cookie
+ribbon:
+  ReadTimeout: 10000
+  ConnectTimeout: 10000
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:3001/eureka/

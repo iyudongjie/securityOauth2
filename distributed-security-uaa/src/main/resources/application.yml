@@ -1,0 +1,67 @@
+
+server:
+  servlet:
+    context-path: /uaa
+  port: 7777
+
+spring:
+  application:
+    name: uaa-service
+  datasource:
+    url: jdbc:mysql://192.168.1.143:3306/oauth2?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+
+  main:
+    allow-bean-definition-overriding: true
+  http:
+    encoding:
+      enabled: true
+      charset: utf-8
+      force: true
+
+
+
+  redis:
+    host: 192.168.1.98
+    port: 6379
+    password:
+    database: 5
+    lettuce:
+      pool:
+        max-active: 32
+        max-wait: 300ms
+        max-idle: 16
+        min-idle: 8
+
+
+
+
+feign:
+  hystrix:
+    enabled: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:3001/eureka/
+
+mybatis:
+  type-aliases-package: com.haishangxian.security.distributed.uaa.domain
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+#授权模式
+#http://localhost:7777/oauth/authorize?response_type=code&client_id=c1&redirect_uri=https://www.baidu.com/
+#http://localhost:7777/oauth/token?code=&grant_type=authorization_code&redirect_uri=&scope=作用域&client_id&client_secret
+#简单模式用于没有后台
+#http://localhost:7777/oauth/authorize?response_type=token&client_id=c1&scope=all&redirect_uri=https://www.baidu.com/
+#密码模式用于自己app
+#http://localhost:7777/oauth/token?grant_type=password&client_id=c1&client_secret=secret&username=zhangsan&password=123
+#客户端用于内部系统
+#http://localhost:7777/oauth/token?grant_type=client_credentials&client_id=c1&client_secret=secret
+
+
+
+#http://localhost:7777/oauth/authorize?response_type=code&client_id=c1&scope=ROLE_ADMIN&redirect_uri=https://www.baidu.com/

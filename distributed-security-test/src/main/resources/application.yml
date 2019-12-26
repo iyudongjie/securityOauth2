@@ -1,0 +1,53 @@
+
+server:
+  servlet:
+    context-path: /test
+  port: 13000
+
+#  servlet:
+#    context-path: /test
+
+spring:
+  application:
+    name: test-service
+  datasource:
+    url: jdbc:mysql://192.168.1.143:3306/oauth2?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+
+  main:
+    allow-bean-definition-overriding: true
+  http:
+    encoding:
+      enabled: true
+      charset: utf-8
+      force: true
+
+
+
+  redis:
+    host: 192.168.1.98
+    port: 6379
+    password:
+    database: 6
+    lettuce:
+      pool:
+        max-active: 32
+        max-wait: 300ms
+        max-idle: 16
+        min-idle: 8
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+
+
+feign:
+  hystrix:
+    enabled: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:3001/eureka/
